@@ -28,9 +28,6 @@ const favoriteBlog = (blogs) => {
 }
 
 //4.6
-//Lodash
-//selvittää kirjoittajan, jolla on eniten blogeja
-//paluuarvo kertoo kirjoittajan ja blogien määrän
 const mostBlogs = (blogs) => {
   if (blogs.length === 0) {
     return null
@@ -53,11 +50,28 @@ const mostLikes = (blogs) => {
   if (blogs.length === 0) {
     return null
   }
+
+  //Lista kirjoittajista ja heidän blogeistaan
+  const authorsBlogs = _.groupBy(blogs, 'author')
+
+  //Lista kirjoittajista ja näiden tykkäysten määrästä
+  const likesPerAuthor = _.map(authorsBlogs, (authorBlogs, author) => {
+    return {
+      author: author,
+      likes: totalLikes(authorBlogs)
+    }
+  })
+
+  //Haetaan eniten tykkäyksiä saanut kirjoittaja ja tämän tykkäykset
+  const mostLikedAuthor = _.maxBy(likesPerAuthor, 'likes')
+
+  return mostLikedAuthor
 }
 
 module.exports = {
   dummy,
   totalLikes,
   favoriteBlog,
-  mostBlogs
+  mostBlogs,
+  mostLikes
 }
