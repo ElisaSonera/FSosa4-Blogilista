@@ -29,7 +29,7 @@ test('there are two blogs', async () => {
   assert.strictEqual(response.body.length, helper.initialBlogs.length)
 })
 
-//4.9 En tiedä ymmärsinkö tehtävää edes oikein
+//4.9 En tiedä ymmärsinkö tehtävää edes oikein, mutta toivottavasti
 test('blog id is id and not _id', async () => {
   const response = await api.get('/api/blogs')
 
@@ -93,21 +93,7 @@ test('blog without title or url is not added', async () => {
   assert.strictEqual(response.body.length, helper.initialBlogs.length)
 })
 
-// ... apuna 4.14:ssa?
-test('a specific blog can be viewed', async () => {
-  const blogsAtStart = await helper.blogsInDb()
-
-  const blogToView = blogsAtStart[0]
-
-  const resultBlog = await api
-    .get(`/api/blogs/${blogToView.id}`)
-    .expect(200)
-    .expect('Content-Type', /application\/json/)
-
-  assert.deepStrictEqual(resultBlog.body, blogToView)
-})
-
-// ... 4.13?
+// 4.13
 test('a blog can be deleted', async () => {
   const blogsAtStart = await helper.blogsInDb()
   const blogToDelete = blogsAtStart[0]
@@ -122,13 +108,51 @@ test('a blog can be deleted', async () => {
   assert.strictEqual(blogsAtEnd.length, helper.initialBlogs.length - 1)
 })
 
-// ...
-test('the first blog is called Blogi', async () => {
-  const response = await api.get('/api/blogs')
+//4.14
+test('a specific blog can be updated', async () => {
+  const blogsAtStart = await helper.blogsInDb()
+  const blogToUpdate = blogsAtStart[0]
 
-  const titles = response.body.map((e) => e.title)
-  assert.strictEqual(titles.includes('Blogi'), true)
+  const updatedBlog = {
+    title: 'Päivitetty Blogi',
+    author: 'Ihan Sama',
+    url: 'www.mikätahansa.fi',
+    likes: 100
+  }
+
+  await api
+    .put(`/api/blogs/${blogToUpdate.id}`)
+    .send(updatedBlog)
+    .expect(200)
+    .expect('Content-Type', /application\/json/)
+
+  const blogsAtEnd = await helper.blogsInDb()
+
+  const titles = blogsAtEnd.map((r) => r.title)
+
+  assert.strictEqual(titles.includes('Päivitetty Blogi'), true)
 })
+
+// ...
+// test('a specific blog can be viewed', async () => {
+//   const blogsAtStart = await helper.blogsInDb()
+//   const blogToView = blogsAtStart[0]
+
+//   const resultBlog = await api
+//     .get(`/api/blogs/${blogToView.id}`)
+//     .expect(200)
+//     .expect('Content-Type', /application\/json/)
+
+//   assert.deepStrictEqual(resultBlog.body, blogToView)
+// })
+
+// ...
+// test('the first blog is called Blogi', async () => {
+//   const response = await api.get('/api/blogs')
+
+//   const titles = response.body.map((e) => e.title)
+//   assert.strictEqual(titles.includes('Blogi'), true)
+// })
 
 after(async () => {
   await mongoose.connection.close()

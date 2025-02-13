@@ -26,18 +26,20 @@ blogsRouter.post('/', async (request, response) => {
     title: body.title,
     author: body.author,
     url: body.url,
-    likes: body.likes || 0 
+    likes: body.likes || 0
   })
 
   const savedBlog = await blog.save()
   response.status(201).json(savedBlog)
 })
 
+//4.13
 blogsRouter.delete('/:id', async (request, response) => {
   await Blog.findByIdAndDelete(request.params.id)
   response.status(204).end()
 })
 
+//4.14
 blogsRouter.put('/:id', async (request, response, next) => {
   const body = request.body
 
