@@ -133,7 +133,7 @@ test('a specific blog can be updated', async () => {
   assert.strictEqual(titles.includes('Päivitetty Blogi'), true)
 })
 
-// ...
+// materiaalin esimerkki
 // test('a specific blog can be viewed', async () => {
 //   const blogsAtStart = await helper.blogsInDb()
 //   const blogToView = blogsAtStart[0]
@@ -146,7 +146,7 @@ test('a specific blog can be updated', async () => {
 //   assert.deepStrictEqual(resultBlog.body, blogToView)
 // })
 
-// ...
+// materiaalin esimerkki
 // test('the first blog is called Blogi', async () => {
 //   const response = await api.get('/api/blogs')
 
