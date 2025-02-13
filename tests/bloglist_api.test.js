@@ -76,8 +76,8 @@ test('if likes are not given, likes are set to 0', async () => {
     .expect(201)
     .expect('Content-Type', /application\/json/)
 
-  const addedBlog = await api.get(`/api/blogs/${response.body.id}`)
-  assert.strictEqual(addedBlog.body.likes, 0)
+  const testBlog = await api.get(`/api/blogs/${response.body.id}`)
+  assert.strictEqual(testBlog.body.likes, 0)
 })
 
 //4.12
