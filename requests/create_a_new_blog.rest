@@ -2,8 +2,9 @@ POST http://localhost:3003/api/blogs
 Content-Type: application/json
 
 {
-  "title": "Blogi",
+  "title": "Uusi Blogi",
   "author": "Telia",
   "url": "http://eimikään.fi",
-  "likes": 13
+  "likes": 13,
+  "userId": "67b31c65a46d3ce4b64bf91b"
 }
