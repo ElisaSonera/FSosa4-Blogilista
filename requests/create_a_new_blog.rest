@@ -1,8 +1,9 @@
 POST http://localhost:3003/api/blogs
 Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImpKb2t1bmVuIiwiaWQiOiI2N2IzMWM2NWE0NmQzY2U0YjY0YmY5MWIiLCJpYXQiOjE3Mzk4MDE0MTF9.wIppzUHeXykHLHi41r4IP-v7lnJ8pambwoIYKvPje0s
 
 {
-  "title": "Uusi Blogi",
+  "title": "Uudehko Blogi",
   "author": "Telia",
   "url": "http://eimikään.fi",
   "likes": 13,
